@@ -1,7 +1,7 @@
-package abstracts;
+package org.abstracts;
 
-import entities.Packet;
-import entities.Message;
+import org.entities.Packet;
+import org.entities.Message;
 
 /**
  * Abstract class representing the protocol used for message transmission.

@@ -1,4 +1,4 @@
-package abstracts;
+package org.abstracts;
 
 import java.util.UUID;
 

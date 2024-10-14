@@ -1,6 +1,6 @@
-package abstracts;
+package org.abstracts;
 
-import entities.Message;
+import org.entities.Message;
 
 /**
  * Abstract class representing the behavior of a node.
@@ -9,3 +9,4 @@ public abstract class AbstractBehavior {
     
     public abstract Message getNewMessage();
 }
+    

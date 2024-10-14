@@ -1,4 +1,4 @@
-package abstracts;
+package org.abstracts;
 
 /**
  * Abstract class managing network-level operations of a node.

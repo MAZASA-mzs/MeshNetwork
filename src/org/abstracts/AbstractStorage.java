@@ -1,4 +1,4 @@
-package abstracts;
+package org.abstracts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public abstract class AbstractStorage<T> {
         items.add(item);
     }
 
-    public T getItem(String id) {
+    public T getItem(AbstractID id) {
         // Find and return item by ID
         return null;
     }
 
-    public void removeItem(String id) {
+    public void removeItem(AbstractID id) {
         // Remove item by ID
     }
 }

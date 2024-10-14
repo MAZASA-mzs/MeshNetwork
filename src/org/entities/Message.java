@@ -1,6 +1,6 @@
-package entities;
+package org.entities;
 
-import ids.MessageID;
+import org.ids.MessageID.MessageID;
 
 /**
  * Represents a message that nodes send and receive.

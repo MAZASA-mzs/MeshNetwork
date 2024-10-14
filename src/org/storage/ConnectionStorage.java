@@ -1,8 +1,8 @@
-package storage;
+package org.storage;
 
-import abstracts.AbstractStorage;
-import entities.Connection;
-import ids.ConnectionID;
+import org.abstracts.AbstractStorage;
+import org.entities.Connection;
+import org.ids.connection.ConnectionID;
 
 /**
  * Storage for managing connections in the network.

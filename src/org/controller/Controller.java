@@ -1,8 +1,15 @@
+package org.controller;
+
+import org.entities.Node;
+import org.ids.connection.ConnectionID;
+import org.ids.node.NodeID;
+import org.storage.NodeStorage;
+import org.entities.Connection;
+import org.storage.ConnectionStorage;
+
 /**
  * Controller class for managing the network system.
  */
-package conttroller;
-
 public class Controller {
 
     private NodeStorage nodeStorage;

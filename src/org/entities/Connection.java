@@ -1,7 +1,8 @@
-package entities;
+package org.entities;
 
-import ids.ConnectionID;
 import java.util.List;
+
+import org.ids.connection.ConnectionID;
 
 /**
  * Represents a connection between nodes in the network.
@@ -9,7 +10,7 @@ import java.util.List;
 public class Connection {
 
     private final ConnectionID id;
-    private List<ids.NodeID> nodesList;
+    private List<org.ids.node.NodeID> nodesList;
     private List<Packet> sendingPacketsList;
     private int speed;
     private double reliability;

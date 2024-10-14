@@ -1,6 +1,6 @@
-package entities;
+package org.entities;
 
-import ids.PacketID;
+import org.ids.packet.PacketID;
 
 /**
  * Represents a data packet being transmitted between nodes.
