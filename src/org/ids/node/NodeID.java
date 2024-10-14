@@ -16,4 +16,9 @@ public class NodeID extends AbstractID {
     public NodeID(UUID id) {
         super(id);
     }
+    
+    @Override
+    public NodeID copy() {
+        return new NodeID(id);
+    }
 }

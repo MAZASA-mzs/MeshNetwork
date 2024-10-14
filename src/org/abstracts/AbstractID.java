@@ -7,7 +7,7 @@ import java.util.UUID;
  */
 public abstract class AbstractID {
 
-    private final UUID id;
+    public final UUID id;
 
     /**
      * Constructor for generating a new ID.
@@ -16,16 +16,8 @@ public abstract class AbstractID {
         this.id = UUID.randomUUID();
     }
 
-    /**
-     * Constructor for creating an ID from an existing UUID.
-     * @param id the UUID to use.
-     */
     public AbstractID(UUID id) {
         this.id = id;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     @Override
@@ -45,4 +37,6 @@ public abstract class AbstractID {
     public int hashCode() {
         return id.hashCode();
     }
+
+    public abstract AbstractID copy();
 }

@@ -16,4 +16,9 @@ public class MessageID extends AbstractID {
     public MessageID(UUID id) {
         super(id);
     }
+    
+    @Override
+    public MessageID copy() {
+        return new MessageID(id);
+    }
 }
