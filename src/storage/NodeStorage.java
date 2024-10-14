@@ -1,6 +1,6 @@
 package storage;
 
-import abstract.AbstractStorage;
+import abstracts.AbstractStorage;
 import entities.Node;
 import ids.NodeID;
 

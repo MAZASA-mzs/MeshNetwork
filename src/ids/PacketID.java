@@ -1,6 +1,6 @@
 package ids;
 
-import abstract.AbstractID;
+import abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Packet.

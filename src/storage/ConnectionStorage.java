@@ -1,6 +1,6 @@
 package storage;
 
-import abstract.AbstractStorage;
+import abstracts.AbstractStorage;
 import entities.Connection;
 import ids.ConnectionID;
 

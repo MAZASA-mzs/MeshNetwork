@@ -1,4 +1,4 @@
-package abstract;
+package abstracts;
 
 import entities.Packet;
 import entities.Message;

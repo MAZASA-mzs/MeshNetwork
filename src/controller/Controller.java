@@ -1,6 +1,8 @@
 /**
  * Controller class for managing the network system.
  */
+package conttroller;
+
 public class Controller {
 
     private NodeStorage nodeStorage;
