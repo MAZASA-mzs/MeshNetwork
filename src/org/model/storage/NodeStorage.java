@@ -1,8 +1,8 @@
-package org.storage;
+package org.model.storage;
 
-import org.abstracts.AbstractStorage;
-import org.entities.Node;
-import org.ids.node.NodeID;
+import org.model.abstracts.AbstractStorage;
+import org.model.entities.Node;
+import org.model.ids.node.NodeID;
 
 /**
  * Storage for managing nodes in the network.

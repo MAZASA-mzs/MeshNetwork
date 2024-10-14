@@ -1,7 +1,7 @@
-package org.abstracts;
+package org.model.abstracts;
 
 import java.util.List;
-import org.entities.Message;
+import org.model.entities.Message;
 
 /**
  * Abstract class representing the behavior of a node in a mesh network.

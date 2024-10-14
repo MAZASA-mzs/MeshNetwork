@@ -1,4 +1,4 @@
-package org.abstracts;
+package org.model.abstracts;
 
 import java.util.UUID;
 

@@ -1,8 +1,8 @@
-package org.ids.message;
+package org.model.ids.message;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Message.

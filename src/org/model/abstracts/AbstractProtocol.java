@@ -1,9 +1,9 @@
-package org.abstracts;
+package org.model.abstracts;
 
 import java.util.List;
-import org.entities.Message;
-import org.entities.Packet;
-import org.ids.packet.PacketID;
+import org.model.entities.Message;
+import org.model.entities.Packet;
+import org.model.ids.packet.PacketID;
 
 /**
  * This abstract class defines the interface for implementing various routing algorithms and protocols

@@ -1,6 +1,6 @@
-package org.abstracts;
+package org.model.abstracts;
 
-import org.ids.connection.ConnectionID;
+import org.model.ids.connection.ConnectionID;
 
 /**
  * Abstract class managing network-level operations of a node.

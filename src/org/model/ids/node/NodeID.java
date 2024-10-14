@@ -1,8 +1,8 @@
-package org.ids.node;
+package org.model.ids.node;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Node.

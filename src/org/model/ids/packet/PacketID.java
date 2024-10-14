@@ -1,8 +1,8 @@
-package org.ids.packet;
+package org.model.ids.packet;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Packet.

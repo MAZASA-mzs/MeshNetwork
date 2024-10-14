@@ -1,8 +1,8 @@
-package org.ids.connection;
+package org.model.ids.connection;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Connection.
