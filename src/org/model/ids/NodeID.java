@@ -1,8 +1,8 @@
-package org.ids.node;
+package org.model.ids;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Node.
@@ -15,10 +15,5 @@ public class NodeID extends AbstractID {
 
     public NodeID(UUID id) {
         super(id);
-    }
-    
-    @Override
-    public NodeID copy() {
-        return new NodeID(id);
     }
 }

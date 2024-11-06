@@ -1,8 +1,8 @@
-package org.ids.connection;
+package org.model.ids;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Connection.
@@ -15,10 +15,5 @@ public class ConnectionID extends AbstractID {
 
     public ConnectionID(UUID id) {
         super(id);
-    }
-    
-    @Override
-    public ConnectionID copy() {
-        return new ConnectionID(id);
     }
 }   

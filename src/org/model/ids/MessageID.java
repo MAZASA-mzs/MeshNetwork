@@ -1,8 +1,8 @@
-package org.ids.message;
+package org.model.ids;
 
 import java.util.UUID;
 
-import org.abstracts.AbstractID;
+import org.model.abstracts.AbstractID;
 
 /**
  * Represents a unique identifier for a Message.
@@ -15,10 +15,5 @@ public class MessageID extends AbstractID {
 
     public MessageID(UUID id) {
         super(id);
-    }
-    
-    @Override
-    public MessageID copy() {
-        return new MessageID(id);
     }
 }

@@ -1,6 +1,6 @@
-package org.abstracts;
+package org.model.abstracts;
 
-import org.ids.connection.ConnectionID;
+import org.model.ids.ConnectionID;
 
 /**
  * Abstract class managing network-level operations of a node.
@@ -8,14 +8,14 @@ import org.ids.connection.ConnectionID;
 public abstract class AbstractNetworkMgr {
 
     /**
-     * Simulates a single time unit in the mesh network simulation.
+     * Update NetworkMgr state.
      */
     public abstract void tick();
 
     /**
-     * Handles a connection request from another node.
+     * Handles a connection request from a connection.
      *
-     * @param connectionID The ID of the connection being requested
+     * @param connectionID The ID of new connection
      * @return true if the connection is accepted, false otherwise
      */
     public abstract boolean connectionRequest(ConnectionID connectionID);

@@ -1,4 +1,4 @@
-package org.abstracts;
+package org.model.abstracts;
 
 import java.util.UUID;
 
@@ -20,12 +20,7 @@ public abstract class AbstractID {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return id.toString();
-    }
-
-    @Override
+   @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
@@ -38,5 +33,8 @@ public abstract class AbstractID {
         return id.hashCode();
     }
 
-    public abstract AbstractID copy();
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }

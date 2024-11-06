@@ -1,11 +1,11 @@
 package org.controller;
 
-import org.entities.Node;
-import org.ids.connection.ConnectionID;
-import org.ids.node.NodeID;
-import org.storage.NodeStorage;
-import org.entities.Connection;
-import org.storage.ConnectionStorage;
+import org.model.ConnectionStorage;
+import org.model.NodeStorage;
+import org.model.entities.Connection;
+import org.model.entities.Node;
+import org.model.ids.ConnectionID;
+import org.model.ids.NodeID;
 
 /**
  * Controller class for managing the network system.
