@@ -2,7 +2,12 @@ package org.model.entities;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.model.ids.ConnectionID;
+=======
+import org.model.ids.node.NodeID;
+import org.model.ids.connection.ConnectionID;
+>>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5
 
 /**
  * Represents a connection between nodes in the network.
@@ -10,7 +15,11 @@ import org.model.ids.ConnectionID;
 public class Connection {
 
     private final ConnectionID id;
+<<<<<<< HEAD
     private List<org.model.ids.NodeID> nodesList;
+=======
+    private List<NodeID> nodesList;
+>>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5
     private List<Packet> sendingPacketsList;
     private int speed;
     private double reliability;

@@ -1,6 +1,10 @@
 package org.model.entities;
 
+<<<<<<< HEAD
 import org.model.ids.MessageID.MessageID;
+=======
+import org.model.ids.message.MessageID;
+>>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5
 
 /**
  * Represents a message that nodes send and receive.
