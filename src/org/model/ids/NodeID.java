@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/org/model/ids/NodeID.java
 package org.model.ids;
-========
-package org.model.ids.node;
->>>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5:src/org/model/ids/node/NodeID.java
 
 import java.util.UUID;
 

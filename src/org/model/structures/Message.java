@@ -1,4 +1,4 @@
-package org.model.entities;
+package org.model.structures;
 
 /**
  * Represents a message that nodes send and receive.

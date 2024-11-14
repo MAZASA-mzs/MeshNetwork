@@ -1,10 +1,5 @@
-package org.model.entities;
+package org.model.structures;
 
-<<<<<<< HEAD
-import org.model.ids.PacketID;
-=======
-import org.model.ids.packet.PacketID;
->>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5
 
 /**
  * Represents a data packet being transmitted between nodes.

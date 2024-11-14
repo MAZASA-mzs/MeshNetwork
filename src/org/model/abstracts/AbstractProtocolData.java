@@ -1,4 +1,4 @@
-package org.model.abstracts.protocol;
+package org.model.abstracts;
 
 public class AbstractProtocolData {
     

@@ -1,11 +1,5 @@
 package org.model.abstracts;
 
-<<<<<<< HEAD
-import org.model.ids.ConnectionID;
-=======
-import org.model.ids.connection.ConnectionID;
->>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5
-
 /**
  * Abstract class managing network-level operations of a node.
  */

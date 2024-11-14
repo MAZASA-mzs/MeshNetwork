@@ -2,7 +2,7 @@ package org.model.abstracts;
 
 import java.util.List;
 
-import org.model.entities.Message;
+import org.model.structures.Message;
 
 /**
  * Abstract class representing types of user behaviour.

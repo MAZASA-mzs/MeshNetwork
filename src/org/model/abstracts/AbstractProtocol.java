@@ -1,19 +1,3 @@
-<<<<<<<< HEAD:src/org/model/abstracts/protocol/AbstractProtocol.java
-package org.model.abstracts.protocol;
-
-import java.util.List;
-
-import org.model.entities.Message;
-import org.model.entities.Packet;
-import org.model.ids.PacketID;
-========
-package org.model.abstracts;
-
-import java.util.List;
-import org.model.entities.Message;
-import org.model.entities.Packet;
-import org.model.ids.packet.PacketID;
->>>>>>>> 0f00acbc8245bc82bab1fbbd6837865ccdef38e5:src/org/model/abstracts/AbstractProtocol.java
 
 /**
  * This abstract class defines the interface for implementing various routing algorithms of protocols. 
