@@ -1,35 +1,32 @@
 package org.model.structures;
 
+import org.model.ids.MessageID;
+import org.model.ids.NodeID;
+
 /**
- * Represents a message that nodes send and receive.
+ * Represents a message sent by nodes.
  */
 public class Message {
 
     private final MessageID id;
-    private int size;
-    private String destination;
+    private final NodeID    destination;
+    private final int       size;
 
-    public Message() {
-        this.id = new MessageID(); // Generates a new MessageID
+    public Message(NodeID destination, int size) {
+        this.id = new MessageID(); 
+        this.destination = destination;
+        this.size = size;
     }
 
     public MessageID getId() {
         return id;
     }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public String getDestination() {
+    
+    public NodeID getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public int getSize() {
+        return size;
     }
 }

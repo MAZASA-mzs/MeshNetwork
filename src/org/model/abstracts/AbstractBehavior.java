@@ -9,9 +9,6 @@ import org.model.structures.Message;
  */
 public abstract class AbstractBehavior {
     
-    /**
-     * Update Behavior state.
-     */
     public abstract void tick();
 
     /**

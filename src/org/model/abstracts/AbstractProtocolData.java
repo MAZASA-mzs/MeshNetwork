@@ -1,5 +1,9 @@
 package org.model.abstracts;
 
-public class AbstractProtocolData {
-    
+/**
+ * Represents abstract data required for protocol operation.
+ */
+public abstract class AbstractProtocolData {
+
+    public abstract int getSize();
 }

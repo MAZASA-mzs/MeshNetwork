@@ -1,30 +1,39 @@
 package org.model.structures;
 
+import org.model.ids.PacketID;
+import org.model.ids.NodeID;
+import org.model.abstracts.AbstractProtocolData;
 
 /**
  * Represents a data packet being transmitted between nodes.
  */
 public class Packet {
 
-    private final PacketID id;
-    private String destination;
-    private int size;
+    private final PacketID  id;
+    private final NodeID    destination;
+    private final int       size;
+    AbstractProtocolData    protocolData;
 
-    public Packet() {
-        this.id = new PacketID(); // Generates a new PacketID
+    public Packet(NodeID destination, int size, AbstractProtocolData protocolData) {
+        this.id = new PacketID();
+        this.destination = destination;
+        this.size = size;
+        this.protocolData = protocolData;
     }
 
     public PacketID getId() {
         return id;
     }
 
+    public NodeID getDestination() {
+        return destination;
+    }
+
     public int getSize() {
-        return size;
+        return size + protocolData.getSize();
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public AbstractProtocolData getProtocolData() {
+        return protocolData;
     }
-
-    // Getters and Setters for destination, size, etc.
 }
