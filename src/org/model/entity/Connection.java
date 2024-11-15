@@ -26,7 +26,7 @@ public class Connection {
         this.sendingPacketsList = new ArrayList<Packet>();
     }
 
-    public ConnectionID getId() {
+    public ConnectionID getID() {
         return id;
     }
     
@@ -48,5 +48,9 @@ public class Connection {
 
     public void tick() {
         
+    }
+
+    public void sendPackets(List<Packet> packets) {
+        sendingPacketsList.addAll(packets);
     }
 }

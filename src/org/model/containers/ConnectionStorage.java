@@ -18,7 +18,7 @@ public class ConnectionStorage {
     }
 
     public void add(Connection item) {
-        data.put(item.getId(), item);
+        data.put(item.getID(), item);
     }
 
     public void remove(ConnectionID id) {
