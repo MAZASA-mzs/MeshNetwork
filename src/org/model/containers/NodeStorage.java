@@ -11,26 +11,29 @@ import org.model.ids.NodeID;
  * Storage for managing nodes in the network.
  */
 public class NodeStorage {
-    private Map<NodeID, Node> data = new HashMap<NodeID, Node>();
+    private static Map<NodeID, Node> data = new HashMap<NodeID, Node>();
 
-    public Node get(NodeID NodeId) {
-        return this.data.get(NodeId);
+    private NodeStorage() {
+        throw new UnsupportedOperationException("This class cannot be instantiated, it's static.");
     }
 
-    public void add(Node item) {
-        NodeID id = new NodeID();
-        data.put(id, item);
+    public static Node get(NodeID nodeID) {
+        return data.get(nodeID);
     }
 
-    public void remove(NodeID id) {
-        data.remove(id);
+    public static void add(Node item) {
+        data.put(item.getID(), item);
     }
 
-    public Set<NodeID> getAllIds() {
+    public static void remove(NodeID nodeID) {
+        data.remove(nodeID);
+    }
+
+    public static Set<NodeID> getIDs() {
         return data.keySet();
     }
 
-    public void update() {
+    public static void update() {
         return;
     }
 }

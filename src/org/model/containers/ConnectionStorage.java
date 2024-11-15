@@ -11,25 +11,29 @@ import org.model.ids.ConnectionID;
  * Storage for managing connections in the network.
  */
 public class ConnectionStorage {
-    private Map<ConnectionID, Connection> data = new HashMap<ConnectionID, Connection>();
+    private static Map<ConnectionID, Connection> data = new HashMap<ConnectionID, Connection>();
 
-    public Connection get(ConnectionID connectionId) {
-        return this.data.get(connectionId);
+    private ConnectionStorage() {
+        throw new UnsupportedOperationException("This class cannot be instantiated, it's static.");
     }
 
-    public void add(Connection item) {
+    public static Connection get(ConnectionID connectionID) {
+        return data.get(connectionID);
+    }
+
+    public static void add(Connection item) {
         data.put(item.getID(), item);
     }
 
-    public void remove(ConnectionID id) {
+    public static void remove(ConnectionID id) {
         data.remove(id);
     }
 
-    public Set<ConnectionID> getAllIds() {
+    public static Set<ConnectionID> getIDs() {
         return data.keySet();
     }
 
-    public void update() {
+    public static void update() {
         return;
     }
 }
