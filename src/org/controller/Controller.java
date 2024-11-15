@@ -27,19 +27,19 @@ public class Controller {
     }
 
     public void addNode(Node node) {
-        nodeStorage.addItem(node);
+        nodeStorage.add(node);
     }
 
     public void removeNode(NodeID nodeId) {
-        nodeStorage.removeItem(nodeId);
+        nodeStorage.remove(nodeId);
     }
 
     public void addConnection(Connection connection) {
-        connectionStorage.addItem(connection);
+        connectionStorage.add(connection);
     }
 
     public void removeConnection(ConnectionID connectionId) {
-        connectionStorage.removeItem(connectionId);
+        connectionStorage.remove(connectionId);
     }
 
     public String getViewData() {

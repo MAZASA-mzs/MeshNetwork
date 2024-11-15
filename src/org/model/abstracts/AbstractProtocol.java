@@ -1,8 +1,13 @@
+package org.model.abstracts;
+
+import java.util.List;
+
+import org.model.structures.Message;
+import org.model.structures.Packet;
+import org.model.ids.PacketID;
 
 /**
- * This abstract class defines the interface for implementing various routing algorithms of protocols. 
- * Concrete subclasses should implement the abstract methods
- * to define the behavior of message sending, receiving, and packet handling.
+ * Define the interface for implementing various routing algorithms of protocols. 
  */
 public abstract class AbstractProtocol {
     
