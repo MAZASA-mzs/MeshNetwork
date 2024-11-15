@@ -9,6 +9,8 @@ import org.model.abstracts.AbstractNetworkMgr;
 import org.model.abstracts.AbstractProtocol;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
+import org.model.ids.PacketID;
+import org.model.structures.Packet;
 
 /**
  * Represents a node in the network.
@@ -33,7 +35,7 @@ public class Node {
         this.networkMgr = networkMgr;
     }
 
-    public NodeID getId() {
+    public NodeID getID() {
         return id;
     }
 
@@ -51,5 +53,21 @@ public class Node {
 
     public void tick() {
         
+    }
+
+    public void connectionBreak(ConnectionID id) {
+        networkMgr.connectionBreak(id);
+    }
+
+    public void connectionRequest(ConnectionID id) {
+        networkMgr.connectionBreak(id);
+    }
+
+    public void recivePackets(List<Packet> packets) {
+        protocol.receivePacket(packets);
+    }
+
+    public void sendingPacketResult(PacketID id, boolean isSuccessfulSending) {
+        protocol.sendingPacketResult(id, isSuccessfulSending);
     }
 }

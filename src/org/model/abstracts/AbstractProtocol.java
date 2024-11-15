@@ -1,8 +1,13 @@
+package org.model.abstracts;
+
+import java.util.List;
+
+import org.model.structures.Message;
+import org.model.structures.Packet;
+import org.model.ids.PacketID;
 
 /**
- * This abstract class defines the interface for implementing various routing algorithms of protocols. 
- * Concrete subclasses should implement the abstract methods
- * to define the behavior of message sending, receiving, and packet handling.
+ * Define the interface for implementing various routing algorithms of protocols. 
  */
 public abstract class AbstractProtocol {
     
@@ -21,16 +26,16 @@ public abstract class AbstractProtocol {
     /**
      * Receive a packet from the connection and add it to processing queue.
      *
-     * @param packet The packet received from the connection
+     * @param packets The packet received from the connection
      */
-    public abstract void receivePacket(Packet packet);
+    public abstract void receivePacket(List<Packet> packets);
 
     /**
      * Called by connection.
      * Indicates the result of sending a packet to sender node.
      *
-     * @param packetID The ID of the packet sent
+     * @param id The ID of the packet sent
      * @param isSuccessfulSending Whether the packet was sent successfully
      */
-    public abstract void sendingPacketResult(PacketID packetID, boolean isSuccessfulSending);
+    public abstract void sendingPacketResult(PacketID id, boolean isSuccessfulSending);
 }

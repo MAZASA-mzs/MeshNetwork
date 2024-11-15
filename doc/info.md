@@ -1,7 +1,5 @@
 TODO:
-* add methods to Node.
-* add methods to Connection.
-* create constractors for containers.
+* update the diagram
 
 Code stale:
 * Always use double, never float.
