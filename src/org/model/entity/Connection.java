@@ -47,7 +47,7 @@ public class Connection {
     }
 
     public void tick() {
-        
+        ;
     }
 
     public void sendPackets(List<Packet> packets) {

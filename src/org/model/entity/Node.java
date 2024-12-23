@@ -64,7 +64,7 @@ public class Node {
     }
 
     public void recivePackets(List<Packet> packets) {
-        protocol.receivePacket(packets);
+        protocol.receivePackets(packets);
     }
 
     public void sendingPacketResult(PacketID id, boolean isSuccessfulSending) {
