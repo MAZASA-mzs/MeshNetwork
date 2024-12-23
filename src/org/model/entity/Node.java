@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Collections;
 
+import org.controller.DataCollector;
 import org.model.abstracts.AbstractBehavior;
 import org.model.abstracts.AbstractNetworkMgr;
 import org.model.abstracts.AbstractProtocol;
@@ -34,6 +35,15 @@ public class Node {
         this.networkMgr = networkMgr;
     }
 
+    public Node(NodeID id, double x, double y, AbstractProtocol protocol, AbstractBehavior behavior, AbstractNetworkMgr networkMgr) {
+        this.id = id; 
+        this.x = x;
+        this.y = y;
+        this.protocol = protocol;
+        this.behavior = behavior;
+        this.networkMgr = networkMgr;
+    }
+
     public NodeID getID() {
         return id;
     }
@@ -51,6 +61,7 @@ public class Node {
     }
 
     public void tick() {
+        DataCollector.nodePosition(this.getID(), this.getX(), this.getY());
         networkMgr.tick();
         behavior.tick();
         List<Message> messages = behavior.getNewMessages();

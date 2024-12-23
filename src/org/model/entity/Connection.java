@@ -69,6 +69,8 @@ public class Connection {
         for (Pair<Packet, Integer> pair : this.sendingPacketsList) {
             Packet packet = pair.k;
             int sendingProgress = pair.v;
+            DataCollector.packetesInConnection(this.getID(), packet.getID(), sendingProgress);
+
             if (sendingProgress >= 1000 ) {
                 Node node = NodeStorage.get(packet.getDestination());
                 node.protocol.receivePacket(packet);

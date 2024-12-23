@@ -19,4 +19,16 @@ public class DataCollector {
     public static void packetDied(PacketID id) {
         System.out.println("packetDied " + id.toString());
     }
+
+    public static void endOfIteration(int globalTimer) {
+        System.out.println("endOfIteration " + ((Integer)globalTimer).toString());
+    }
+
+    public static void nodePosition(NodeID id, double x, double y) {
+        System.out.println("nodePosition " + id.toString() + " " + ((Double)x).toString() + " " + ((Double)y).toString());
+    }
+
+    public static void packetesInConnection(ConnectionID id, PacketID id2, int sendingProgress) {
+        System.out.println("packetesInConnection " + id.toString() + " " + id2.toString() + " " + ((Integer)sendingProgress).toString());
+    }
 }

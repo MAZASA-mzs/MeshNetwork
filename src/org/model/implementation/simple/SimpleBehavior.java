@@ -10,11 +10,16 @@ import org.model.ids.NodeID;
 import org.model.structures.Message;
 
 public class SimpleBehavior extends AbstractBehavior {
+    private final NodeID nodeID;
+    private NodeID nextNodeID;
+    private int nextMessageSize;
     private int maxMessageSize = 128;
     private int maxMessageTimer = 32;
     private int nextMessageTimer = 0;
-    private int nextMessageSize;
-    private NodeID nextNodeID;
+
+    public SimpleBehavior(NodeID nodeID) {
+        this.nodeID = nodeID;
+    }
 
     @Override
     public void tick() {

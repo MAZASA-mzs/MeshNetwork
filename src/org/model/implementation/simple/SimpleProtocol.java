@@ -13,10 +13,12 @@ import java.util.Set;
 import org.controller.DataCollector;
 import org.model.abstracts.AbstractProtocol;
 import org.model.containers.ConnectionStorage;
+import org.model.containers.NodeStorage;
 import org.model.entity.Node;
 import org.model.entity.Connection;
 import org.model.ids.ConnectionID;
 import org.model.ids.MessageID;
+import org.model.ids.NodeID;
 import org.model.ids.PacketID;
 import org.model.structures.Message;
 import org.model.structures.Packet;
@@ -25,14 +27,15 @@ import org.model.structures.Pair;
 
 public class SimpleProtocol extends AbstractProtocol {
     private static int startTtl = 64; 
-    private Node                  node;
+    private final NodeID          nodeID;
     private Deque<PacketID>       packetQueue;
     private Set<MessageID>        recivedMessages;
     private Map<PacketID, Packet> packetsInProcess;
     private Map<MessageID, Pair<Integer, Set<Integer>>> recivingMessages;
 
-    public SimpleProtocol(Node node) {
-        this.node = node;
+    public SimpleProtocol(NodeID nodeID) {
+        this.nodeID = nodeID;
+
         this.packetQueue      = new LinkedList<>();
         this.packetsInProcess = new HashMap<>();
         this.recivedMessages  = new HashSet<>();
@@ -41,6 +44,7 @@ public class SimpleProtocol extends AbstractProtocol {
 
     @Override
     public void sendMessages(List<Message> messages) {
+        Node thisNode = NodeStorage.get(this.nodeID);
         for (Message message : messages) {
             int current_msg_size = message.getSize();
             int partsCount = message.getSize() / SimpleProtocolData.size;
@@ -52,9 +56,9 @@ public class SimpleProtocol extends AbstractProtocol {
                 int delta = Math.min(SimpleProtocolData.size, current_msg_size);
                 current_msg_size -= delta;
                 SimpleProtocolData data = new SimpleProtocolData(SimpleProtocol.startTtl, message.getID(),
-                                                                this.node.getID(), message.getDestination(),
+                                                                thisNode.getID(), message.getDestination(),
                                                                 partsCount, partNumber);
-                Packet packet = new Packet(this.node.getID(), message.getDestination(), delta, data);
+                Packet packet = new Packet(thisNode.getID(), message.getDestination(), delta, data);
                 this.packetsInProcess.put(packet.getID(), packet);
                 this.packetQueue.addLast(packet.getID());
             }
@@ -63,7 +67,8 @@ public class SimpleProtocol extends AbstractProtocol {
 
     @Override
     public void tick() {
-        for (ConnectionID connectionID : node.getConnectionsSet()) {
+        Node thisNode = NodeStorage.get(this.nodeID);
+        for (ConnectionID connectionID : thisNode.getConnectionsSet()) {
             Connection connection = ConnectionStorage.get(connectionID);
             List<Packet> packets = this.packetQueue.stream()
                 .map(this.packetsInProcess::get)
@@ -81,9 +86,10 @@ public class SimpleProtocol extends AbstractProtocol {
         }
 
     public void receivePacket(Packet packet) {
+        Node thisNode = NodeStorage.get(this.nodeID);
         SimpleProtocolData packetData = (SimpleProtocolData) packet.getProtocolData();
         // if this.node is receiver
-        if (packet.getDestination().equals(this.node.getID())) {
+        if (packet.getDestination().equals(thisNode.getID())) {
             MessageID messageID = packetData.getMessageID();
             // skip already recieved messages
             if (this.recivedMessages.contains(messageID)) return;
@@ -93,7 +99,7 @@ public class SimpleProtocol extends AbstractProtocol {
             }
             recivingMessages.get(messageID).v.add(packetData.getPartNumber());
             if (recivingMessages.get(messageID).k == recivingMessages.get(messageID).v.size()) {
-                DataCollector.messageRecieved(this.node.getID(), messageID);
+                DataCollector.messageRecieved(thisNode.getID(), messageID);
                 this.recivedMessages.add(messageID);
                 this.recivingMessages.remove(messageID);
             }
@@ -108,7 +114,7 @@ public class SimpleProtocol extends AbstractProtocol {
             SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData.getMessageID(),
                                                             packetData.getNodeSenderID(), packet.getDestination(),
                                                             packetData.getPartsCount(), packetData.getPartNumber());
-            Packet newPacket = new Packet(this.node.getID(), packet.getDestination(), packetData.getSize(), data);
+            Packet newPacket = new Packet(thisNode.getID(), packet.getDestination(), packetData.getSize(), data);
             this.packetsInProcess.put(newPacket.getID(), newPacket);
             this.packetQueue.addLast(newPacket.getID());
         }

@@ -34,6 +34,9 @@ public class NodeStorage {
     }
 
     public static void update() {
+        for (NodeID nodeID : NodeStorage.getIDs()) {
+            NodeStorage.get(nodeID).tick();
+        }
         return;
     }
 }
