@@ -14,6 +14,5 @@ public class App {
             msgs.add(new Message(node.getID(), i));
         }
         protocol.sendMessages(msgs);
-        // System.out.println("It's SLN404 time!!! Fixing fies. Try infty/2");
     }
 }

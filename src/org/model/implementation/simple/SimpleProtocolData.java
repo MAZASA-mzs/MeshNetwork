@@ -22,7 +22,6 @@ public class SimpleProtocolData extends AbstractProtocolData{
         this.nodeReceiverID = nodeReceiverID;
         this.partsCount     = partsCount;
         this.partNumber     = partNumber;
-        // Отсоси
     }
 
     public int getSize() {

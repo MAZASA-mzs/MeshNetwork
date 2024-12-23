@@ -1,5 +1,7 @@
 package org.model.abstracts;
 
+import java.util.Set;
+
 import org.model.ids.ConnectionID;;
 
 /**
@@ -11,6 +13,11 @@ public abstract class AbstractNetworkMgr {
      * Update NetworkMgr state.
      */
     public abstract void tick();
+
+    /**
+     * return a List of active Node Connections 
+     */
+    public abstract Set<ConnectionID> getConnectionsSet();
 
     /**
      * Handles a connection request from a other Node.

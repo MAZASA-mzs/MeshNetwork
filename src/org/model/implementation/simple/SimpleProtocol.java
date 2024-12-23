@@ -27,8 +27,8 @@ public class SimpleProtocol extends AbstractProtocol {
     private static int startTtl = 64; 
     private Node                  node;
     private Deque<PacketID>       packetQueue;
-    private Map<PacketID, Packet> packetsInProcess;
     private Set<MessageID>        recivedMessages;
+    private Map<PacketID, Packet> packetsInProcess;
     private Map<MessageID, Pair<Integer, Set<Integer>>> recivingMessages;
 
     public SimpleProtocol(Node node) {
@@ -63,14 +63,12 @@ public class SimpleProtocol extends AbstractProtocol {
 
     @Override
     public void tick() {
-        for (ConnectionID connectionID : node.getConnectionsList()) {
+        for (ConnectionID connectionID : node.getConnectionsSet()) {
             Connection connection = ConnectionStorage.get(connectionID);
             List<Packet> packets = this.packetQueue.stream()
                 .map(this.packetsInProcess::get)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-            // System.out.println("Connection: " + connectionID.toString());
-            // System.out.println(packets);
             connection.sendPackets(packets);
         }
         this.packetQueue.clear();
@@ -78,35 +76,41 @@ public class SimpleProtocol extends AbstractProtocol {
 
     @Override
     public void receivePackets(List<Packet> packets) {
-        for (Packet packet : packets) {
-            SimpleProtocolData packetData = (SimpleProtocolData) packet.getProtocolData();
-            // if node is receiver
-            if (packet.getDestination().equals(this.node.getID())) {
-                MessageID messageID = packetData.getMessageID();
-                // skip already recieved messages
-                if (this.recivedMessages.contains(messageID)) continue;
-                if (!this.recivingMessages.containsKey(messageID)) {
-                    Pair<Integer, Set<Integer>> pair = new Pair<>(packetData.getPartsCount(), new HashSet<Integer>());
-                    this.recivingMessages.put(messageID, pair);
-                }
-                recivingMessages.get(messageID).v.add(packetData.getPartNumber());
-                if (recivingMessages.get(messageID).k == recivingMessages.get(messageID).v.size()) {
-                    DataCollector.messageRecieved(this.node.getID(), messageID);
-                    this.recivedMessages.add(messageID);
-                    this.recivingMessages.remove(messageID);
-                }
+        for (Packet packet : packets) 
+            this.receivePacket(packet);
+        }
+
+    public void receivePacket(Packet packet) {
+        SimpleProtocolData packetData = (SimpleProtocolData) packet.getProtocolData();
+        // if this.node is receiver
+        if (packet.getDestination().equals(this.node.getID())) {
+            MessageID messageID = packetData.getMessageID();
+            // skip already recieved messages
+            if (this.recivedMessages.contains(messageID)) return;
+            if (!this.recivingMessages.containsKey(messageID)) {
+                Pair<Integer, Set<Integer>> pair = new Pair<>(packetData.getPartsCount(), new HashSet<Integer>());
+                this.recivingMessages.put(messageID, pair);
             }
-            // route packet
-            else {
-                // skip expired packets
-                if (packetData.getTtl() <= 0) continue;
-                SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData.getMessageID(),
-                                                                packetData.getNodeSenderID(), packet.getDestination(),
-                                                                packetData.getPartsCount(), packetData.getPartNumber());
-                Packet newPacket = new Packet(this.node.getID(), packet.getDestination(), packetData.getSize(), data);
-                this.packetsInProcess.put(newPacket.getID(), newPacket);
-                this.packetQueue.addLast(newPacket.getID());
+            recivingMessages.get(messageID).v.add(packetData.getPartNumber());
+            if (recivingMessages.get(messageID).k == recivingMessages.get(messageID).v.size()) {
+                DataCollector.messageRecieved(this.node.getID(), messageID);
+                this.recivedMessages.add(messageID);
+                this.recivingMessages.remove(messageID);
             }
+        }
+        // route packet
+        else {
+            // skip expired packets
+            if (packetData.getTtl() <= 0) {
+                DataCollector.packetDied(packet.getID());
+                return;
+            }
+            SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData.getMessageID(),
+                                                            packetData.getNodeSenderID(), packet.getDestination(),
+                                                            packetData.getPartsCount(), packetData.getPartNumber());
+            Packet newPacket = new Packet(this.node.getID(), packet.getDestination(), packetData.getSize(), data);
+            this.packetsInProcess.put(newPacket.getID(), newPacket);
+            this.packetQueue.addLast(newPacket.getID());
         }
     }
 
