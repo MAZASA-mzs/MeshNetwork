@@ -1,4 +1,6 @@
 import re
+import sys
+from pathlib import Path
 from collections import defaultdict
 
 def parse_logs(log_file):
@@ -72,8 +74,13 @@ def calculate_metrics(data):
     return metrics
 
 if __name__ == "__main__":
-    log_file = "output.txt"  # Update with your log file path
-    data = parse_logs(log_file)
+    if len(sys.argv) == 0:
+        file_path = Path("output.txt")
+    else:
+        file_path = Path(sys.argv[1])
+    print(sys.argv)
+
+    data = parse_logs(file_path)
     metrics = calculate_metrics(data)
 
     print("Mesh Network Metrics:")

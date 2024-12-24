@@ -1,6 +1,5 @@
 import pygame
 import sys
-import math
 from pathlib import Path
 from time import time
 # Initialize Pygame
@@ -141,7 +140,12 @@ def main():
     global current_iteration
 
     clock = pygame.time.Clock()
-    file_path = Path("output.txt")
+
+    if len(sys.argv) == 0:
+        file_path = Path("output.txt")
+    else:
+        file_path = Path(sys.argv[1])
+    print(sys.argv)
 
     DT = 0.05
     last_iteration = float("-inf")
