@@ -28,7 +28,14 @@ public abstract class AbstractProtocol {
      *
      * @param packets The packet received from the connection
      */
-    public abstract void receivePacket(List<Packet> packets);
+    public abstract void receivePackets(List<Packet> packets);
+
+    /**
+     * Receive a packet from the connection and add it to processing queue.
+     *
+     * @param packet The packet received from the connection
+     */
+    public abstract void receivePacket(Packet packets);
 
     /**
      * Called by connection.

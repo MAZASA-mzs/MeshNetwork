@@ -1,15 +1,17 @@
 package org.model.entity;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
 import java.util.Collections;
 
+import org.controller.DataCollector;
 import org.model.abstracts.AbstractBehavior;
 import org.model.abstracts.AbstractNetworkMgr;
 import org.model.abstracts.AbstractProtocol;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
+import org.model.structures.Message;
 import org.model.structures.Packet;
 
 /**
@@ -20,16 +22,23 @@ public class Node {
     private final NodeID        id;
     private double              x;
     private double              y;
-    private List<ConnectionID>  connectionsList;
-    private AbstractProtocol    protocol;
-    private AbstractBehavior    behavior;
-    private AbstractNetworkMgr  networkMgr;
+    AbstractProtocol    protocol;
+    AbstractBehavior    behavior;
+    AbstractNetworkMgr  networkMgr;
 
     public Node(double x, double y, AbstractProtocol protocol, AbstractBehavior behavior, AbstractNetworkMgr networkMgr) {
         this.id = new NodeID(); 
         this.x = x;
         this.y = y;
-        this.connectionsList = new ArrayList<ConnectionID>();
+        this.protocol = protocol;
+        this.behavior = behavior;
+        this.networkMgr = networkMgr;
+    }
+
+    public Node(NodeID id, double x, double y, AbstractProtocol protocol, AbstractBehavior behavior, AbstractNetworkMgr networkMgr) {
+        this.id = id; 
+        this.x = x;
+        this.y = y;
         this.protocol = protocol;
         this.behavior = behavior;
         this.networkMgr = networkMgr;
@@ -47,24 +56,29 @@ public class Node {
         return y;
     }
 
-    public List<ConnectionID> getConnectionsList() {
-        return Collections.unmodifiableList(this.connectionsList);
+    public Set<ConnectionID> getConnectionsSet() {
+        return Collections.unmodifiableSet(this.networkMgr.getConnectionsSet());
     }
 
     public void tick() {
-        
+        DataCollector.nodePosition(this.getID(), this.getX(), this.getY());
+        networkMgr.tick();
+        behavior.tick();
+        List<Message> messages = behavior.getNewMessages();
+        protocol.sendMessages(messages);
+        protocol.tick();        
     }
 
     public void connectionBreak(ConnectionID id) {
         networkMgr.connectionBreak(id);
     }
 
-    public void connectionRequest(ConnectionID id) {
-        networkMgr.connectionBreak(id);
+    public boolean connectionRequest(ConnectionID id) {
+        return networkMgr.connectionRequest(id);
     }
 
     public void recivePackets(List<Packet> packets) {
-        protocol.receivePacket(packets);
+        protocol.receivePackets(packets);
     }
 
     public void sendingPacketResult(PacketID id, boolean isSuccessfulSending) {

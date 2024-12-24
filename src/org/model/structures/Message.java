@@ -18,7 +18,7 @@ public class Message {
         this.size = size;
     }
 
-    public MessageID getId() {
+    public MessageID getID() {
         return id;
     }
     

@@ -13,28 +13,27 @@ import org.model.ids.NodeID;
  * Controller class for managing the network system.
  */
 public class Controller {
-
-    public void update() {
+    public static void update() {
         // Update nodes and connections
     }
 
-    public void addNode(Node node) {
+    public static void addNode(Node node) {
         NodeStorage.add(node);
     }
 
-    public void removeNode(NodeID nodeId) {
+    public static void removeNode(NodeID nodeId) {
         NodeStorage.remove(nodeId);
     }
 
-    public void addConnection(Connection connection) {
+    public static void addConnection(Connection connection) {
         ConnectionStorage.add(connection);
     }
 
-    public void removeConnection(ConnectionID connectionId) {
+    public static void removeConnection(ConnectionID connectionId) {
         ConnectionStorage.remove(connectionId);
     }
 
-    public String getViewData() {
+    public static String getViewData() {
         // Returns the data to be viewed in the GUI
         return null;
     }

@@ -25,7 +25,7 @@ public class Packet {
         this.protocolData = protocolData;
     }
 
-    public PacketID getId() {
+    public PacketID getID() {
         return id;
     }
 

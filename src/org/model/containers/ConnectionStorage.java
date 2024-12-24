@@ -34,6 +34,9 @@ public class ConnectionStorage {
     }
 
     public static void update() {
+        for (ConnectionID connectionID : ConnectionStorage.getIDs()) {
+            ConnectionStorage.get(connectionID).tick();
+        }
         return;
     }
 }
