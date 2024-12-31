@@ -2,6 +2,7 @@ import org.config.NodeFactory;
 import org.controller.DataCollector;
 import org.model.containers.ConnectionStorage;
 import org.model.containers.NodeStorage;
+
 public class App {
     private static final int deadTimer = 200;
     public static void main(String[] args) throws Exception {

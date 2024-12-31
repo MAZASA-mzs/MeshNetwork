@@ -14,7 +14,7 @@ public class SimpleBehavior extends AbstractBehavior {
     private NodeID nextNodeID;
     private int nextMessageSize;
     private int maxMessageSize = 128;
-    private int maxMessageTimer = 32;
+    private int maxMessageTimer = 128;
     private int nextMessageTimer = 0;
 
     public SimpleBehavior(NodeID nodeID) {
