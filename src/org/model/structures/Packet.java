@@ -1,8 +1,8 @@
 package org.model.structures;
 
 import org.model.ids.PacketID;
+import org.model.interfaces.PacketProtocolData;
 import org.model.ids.NodeID;
-import org.model.abstracts.AbstractProtocolData;
 
 /**
  * Represents a data packet being transmitted between nodes.
@@ -14,9 +14,9 @@ public class Packet {
     private final NodeID    destination;
     private final int       size;
     private double          transferRate;
-    AbstractProtocolData    protocolData;
+    PacketProtocolData    protocolData;
 
-    public Packet(NodeID lastSender, NodeID destination, int size, AbstractProtocolData protocolData) {
+    public Packet(NodeID lastSender, NodeID destination, int size, PacketProtocolData protocolData) {
         this.id = new PacketID();
         this.lastSender = lastSender;
         this.destination = destination;
@@ -49,7 +49,7 @@ public class Packet {
         this.transferRate = transferRate; 
     }
 
-    public AbstractProtocolData getProtocolData() {
+    public PacketProtocolData getProtocolData() {
         return protocolData;
     }
 }

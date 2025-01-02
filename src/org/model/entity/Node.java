@@ -5,12 +5,12 @@ import java.util.Set;
 import java.util.Collections;
 
 import org.controller.DataCollector;
-import org.model.abstracts.AbstractBehavior;
-import org.model.abstracts.AbstractNetworkMgr;
-import org.model.abstracts.AbstractProtocol;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
+import org.model.interfaces.UserNetworkMgr;
+import org.model.interfaces.NetworkProtocol;
+import org.model.interfaces.UserTrafficBehavior;
 import org.model.structures.Message;
 import org.model.structures.Packet;
 
@@ -22,11 +22,11 @@ public class Node {
     private final NodeID        id;
     private double              x;
     private double              y;
-    AbstractProtocol    protocol;
-    AbstractBehavior    behavior;
-    AbstractNetworkMgr  networkMgr;
+    NetworkProtocol    protocol;
+    UserTrafficBehavior    behavior;
+    UserNetworkMgr  networkMgr;
 
-    public Node(double x, double y, AbstractProtocol protocol, AbstractBehavior behavior, AbstractNetworkMgr networkMgr) {
+    public Node(double x, double y, NetworkProtocol protocol, UserTrafficBehavior behavior, UserNetworkMgr networkMgr) {
         this.id = new NodeID(); 
         this.x = x;
         this.y = y;
@@ -35,7 +35,7 @@ public class Node {
         this.networkMgr = networkMgr;
     }
 
-    public Node(NodeID id, double x, double y, AbstractProtocol protocol, AbstractBehavior behavior, AbstractNetworkMgr networkMgr) {
+    public Node(NodeID id, double x, double y, NetworkProtocol protocol, UserTrafficBehavior behavior, UserNetworkMgr networkMgr) {
         this.id = id; 
         this.x = x;
         this.y = y;

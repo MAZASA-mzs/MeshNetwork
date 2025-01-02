@@ -1,4 +1,4 @@
-package org.model.implementation.simple;
+package org.model.implementations.simple;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -6,16 +6,16 @@ import java.util.Random;
 import java.util.Set;
 
 import org.config.ConnectionFactory;
-import org.model.abstracts.AbstractNetworkMgr;
 import org.model.containers.ConnectionStorage;
 import org.model.containers.NodeStorage;
 import org.model.entity.Connection;
 import org.model.entity.Node;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
+import org.model.interfaces.UserNetworkMgr;
 
 
-public class SimpleNetworkMgr extends AbstractNetworkMgr {
+public class SimpleNetworkMgr implements UserNetworkMgr {
     private int maxConnectionRequestTimer = 64;
     private int nextConnectionRequestTimer = 0;
     private int maxConnectionRadius = 128;

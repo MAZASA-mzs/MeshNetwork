@@ -1,4 +1,4 @@
-package org.model.abstracts;
+package org.model.interfaces;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.model.ids.PacketID;
 /**
  * Define the interface for implementing various routing algorithms of protocols. 
  */
-public abstract class AbstractProtocol {
+public abstract class NetworkProtocol {
     
     /**
      * Update Protocol state.

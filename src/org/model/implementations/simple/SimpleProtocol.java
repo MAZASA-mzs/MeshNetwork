@@ -1,4 +1,4 @@
-package org.model.implementation.simple;
+package org.model.implementations.simple;
 
 import java.util.stream.Collectors;
 import java.util.Objects;
@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.controller.DataCollector;
-import org.model.abstracts.AbstractProtocol;
 import org.model.containers.ConnectionStorage;
 import org.model.containers.NodeStorage;
 import org.model.entity.Node;
@@ -20,12 +19,13 @@ import org.model.ids.ConnectionID;
 import org.model.ids.MessageID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
+import org.model.interfaces.NetworkProtocol;
 import org.model.structures.Message;
 import org.model.structures.Packet;
 import org.model.structures.Pair;
 
 
-public class SimpleProtocol extends AbstractProtocol {
+public class SimpleProtocol extends NetworkProtocol {
     private static int startTtl = 64; 
     private final NodeID          nodeID;
     private Deque<PacketID>       packetQueue;

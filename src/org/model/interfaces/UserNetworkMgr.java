@@ -1,4 +1,4 @@
-package org.model.abstracts;
+package org.model.interfaces;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import org.model.ids.ConnectionID;;
 /**
  * Abstract class managing network-level operations of a node.
  */
-public abstract class AbstractNetworkMgr {
+public interface UserNetworkMgr {
 
     /**
      * Update NetworkMgr state.

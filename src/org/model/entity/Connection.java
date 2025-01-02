@@ -14,7 +14,7 @@ import org.controller.DataCollector;
 import org.model.containers.NodeStorage;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
-import org.model.implementation.simple.SimpleProtocolData;
+import org.model.implementations.simple.SimpleProtocolData;
 
 /**
  * Represents a connection between nodes in the network.

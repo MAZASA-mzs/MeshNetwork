@@ -2,15 +2,15 @@ package org.config;
 
 import java.util.Random;
 
-import org.model.abstracts.AbstractBehavior;
-import org.model.abstracts.AbstractNetworkMgr;
-import org.model.abstracts.AbstractProtocol;
 import org.model.containers.NodeStorage;
 import org.model.entity.Node;
 import org.model.ids.NodeID;
-import org.model.implementation.simple.SimpleBehavior;
-import org.model.implementation.simple.SimpleNetworkMgr;
-import org.model.implementation.simple.SimpleProtocol;
+import org.model.implementations.simple.SimpleTrafficBehavior;
+import org.model.interfaces.UserNetworkMgr;
+import org.model.interfaces.NetworkProtocol;
+import org.model.interfaces.UserTrafficBehavior;
+import org.model.implementations.simple.SimpleNetworkMgr;
+import org.model.implementations.simple.SimpleProtocol;
 
 public class NodeFactory {
 
@@ -22,9 +22,9 @@ public class NodeFactory {
         int totalNodes = NodeFactory.startNodes;
         for (int i = 0; i < totalNodes; i++) {
             NodeID nodeID = new NodeID();
-            AbstractProtocol protocol = new SimpleProtocol(nodeID);
-            AbstractBehavior behavior = new SimpleBehavior(nodeID);
-            AbstractNetworkMgr networkMgr = new SimpleNetworkMgr(nodeID);
+            NetworkProtocol protocol = new SimpleProtocol(nodeID);
+            UserTrafficBehavior behavior = new SimpleTrafficBehavior(nodeID);
+            UserNetworkMgr networkMgr = new SimpleNetworkMgr(nodeID);
             Node newNode = new Node(nodeID, random.nextDouble(-100, 100), random.nextDouble(-100, 100),
                                     protocol, behavior, networkMgr);
             NodeStorage.add(newNode);
@@ -35,9 +35,9 @@ public class NodeFactory {
 
     public static int update() {
         NodeID nodeID = new NodeID();
-        AbstractProtocol protocol = new SimpleProtocol(nodeID);
-        AbstractBehavior behavior = new SimpleBehavior(nodeID);
-        AbstractNetworkMgr networkMgr = new SimpleNetworkMgr(nodeID);
+        NetworkProtocol protocol = new SimpleProtocol(nodeID);
+        UserTrafficBehavior behavior = new SimpleTrafficBehavior(nodeID);
+        UserNetworkMgr networkMgr = new SimpleNetworkMgr(nodeID);
         Node newNode = new Node(nodeID, random.nextDouble(-100, 100), random.nextDouble(-100, 100),
                                 protocol, behavior, networkMgr);
         NodeStorage.add(newNode);

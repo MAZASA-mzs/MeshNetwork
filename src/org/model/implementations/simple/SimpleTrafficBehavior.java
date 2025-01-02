@@ -1,15 +1,15 @@
-package org.model.implementation.simple;
+package org.model.implementations.simple;
 
 import java.util.Random;
 import java.util.List;
 import java.util.LinkedList;
 
-import org.model.abstracts.AbstractBehavior;
 import org.model.containers.NodeStorage;
 import org.model.ids.NodeID;
+import org.model.interfaces.UserTrafficBehavior;
 import org.model.structures.Message;
 
-public class SimpleBehavior extends AbstractBehavior {
+public class SimpleTrafficBehavior implements UserTrafficBehavior {
     private final NodeID nodeID;
     private NodeID nextNodeID;
     private int nextMessageSize;
@@ -17,7 +17,7 @@ public class SimpleBehavior extends AbstractBehavior {
     private int maxMessageTimer = 128;
     private int nextMessageTimer = 0;
 
-    public SimpleBehavior(NodeID nodeID) {
+    public SimpleTrafficBehavior(NodeID nodeID) {
         this.nodeID = nodeID;
     }
 

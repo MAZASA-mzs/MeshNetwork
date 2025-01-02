@@ -1,9 +1,9 @@
-package org.model.abstracts;
+package org.model.interfaces;
 
 /**
  * Represents abstract data required for protocol operation.
  */
-public abstract class AbstractProtocolData {
+public interface PacketProtocolData {
 
     public abstract int getSize();
 }

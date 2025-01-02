@@ -1,4 +1,4 @@
-package org.model.abstracts;
+package org.model.interfaces;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.model.structures.Message;
 /**
  * Abstract class representing types of user behaviour.
  */
-public abstract class AbstractBehavior {
+public interface UserTrafficBehavior {
     
     public abstract void tick();
 

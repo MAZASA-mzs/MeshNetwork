@@ -1,10 +1,10 @@
-package org.model.implementation.simple;
+package org.model.implementations.simple;
 
-import org.model.abstracts.AbstractProtocolData;
 import org.model.ids.MessageID;
 import org.model.ids.NodeID;
+import org.model.interfaces.PacketProtocolData;
 
-public class SimpleProtocolData extends AbstractProtocolData{
+public class SimpleProtocolData implements PacketProtocolData{
 
     public static int       size = 64;
     private final int       ttl;
