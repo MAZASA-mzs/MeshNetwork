@@ -52,4 +52,9 @@ public class SimpleProtocolData implements PacketProtocolData{
         return partNumber;
     }
 
+    @Override
+    public String getData() {
+        return nodeSenderID.toString() + " " + nodeReceiverID.toString() + " " + messageID.toString() + " " + Integer.toString(ttl);
+    }
+
 }

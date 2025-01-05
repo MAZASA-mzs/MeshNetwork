@@ -32,9 +32,4 @@ public class Controller {
     public static void removeConnection(ConnectionID connectionId) {
         ConnectionStorage.remove(connectionId);
     }
-
-    public static String getViewData() {
-        // Returns the data to be viewed in the GUI
-        return null;
-    }
 }

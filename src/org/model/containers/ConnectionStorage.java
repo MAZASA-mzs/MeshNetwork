@@ -1,6 +1,8 @@
 package org.model.containers;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,5 +40,12 @@ public class ConnectionStorage {
             ConnectionStorage.get(connectionID).tick();
         }
         return;
+    }
+
+    public static List<Connection> getConnectionsList() {
+        List<Connection> connections = new LinkedList<>();
+        for (ConnectionID connectionID : ConnectionStorage.data.keySet())
+            connections.add(ConnectionStorage.get(connectionID));
+        return connections;
     }
 }

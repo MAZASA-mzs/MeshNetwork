@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.controller.DataCollector;
+import org.controller.datacollection.DataCollector;
 import org.model.containers.ConnectionStorage;
 import org.model.containers.NodeStorage;
 import org.model.entity.Node;
@@ -19,6 +19,8 @@ import org.model.ids.ConnectionID;
 import org.model.ids.MessageID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
+import org.model.implementations.base.meshevents.MessageRecieved;
+import org.model.implementations.simple.meshevents.PacketDied;
 import org.model.interfaces.NetworkProtocol;
 import org.model.structures.Message;
 import org.model.structures.Packet;
@@ -44,7 +46,6 @@ public class SimpleProtocol extends NetworkProtocol {
 
     @Override
     public void sendMessages(List<Message> messages) {
-        Node thisNode = NodeStorage.get(this.nodeID);
         for (Message message : messages) {
             int current_msg_size = message.getSize();
             int partsCount = message.getSize() / SimpleProtocolData.size;
@@ -56,9 +57,9 @@ public class SimpleProtocol extends NetworkProtocol {
                 int delta = Math.min(SimpleProtocolData.size, current_msg_size);
                 current_msg_size -= delta;
                 SimpleProtocolData data = new SimpleProtocolData(SimpleProtocol.startTtl, message.getID(),
-                                                                thisNode.getID(), message.getDestination(),
+                                                                this.nodeID, message.getDestination(),
                                                                 partsCount, partNumber);
-                Packet packet = new Packet(thisNode.getID(), message.getDestination(), delta, data);
+                Packet packet = new Packet(this.nodeID, message.getDestination(), delta, data);
                 this.packetsInProcess.put(packet.getID(), packet);
                 this.packetQueue.addLast(packet.getID());
             }
@@ -86,10 +87,9 @@ public class SimpleProtocol extends NetworkProtocol {
         }
 
     public void receivePacket(Packet packet) {
-        Node thisNode = NodeStorage.get(this.nodeID);
         SimpleProtocolData packetData = (SimpleProtocolData) packet.getProtocolData();
         // if this.node is receiver
-        if (packet.getDestination().equals(thisNode.getID())) {
+        if (packet.getDestination().equals(this.nodeID)) {
             MessageID messageID = packetData.getMessageID();
             // skip already recieved messages
             if (this.recivedMessages.contains(messageID)) return;
@@ -99,7 +99,7 @@ public class SimpleProtocol extends NetworkProtocol {
             }
             recivingMessages.get(messageID).v.add(packetData.getPartNumber());
             if (recivingMessages.get(messageID).k == recivingMessages.get(messageID).v.size()) {
-                DataCollector.messageRecieved(thisNode.getID(), messageID);
+                DataCollector.collect(new MessageRecieved(this.nodeID, messageID));
                 this.recivedMessages.add(messageID);
                 this.recivingMessages.remove(messageID);
             }
@@ -108,13 +108,13 @@ public class SimpleProtocol extends NetworkProtocol {
         else {
             // skip expired packets
             if (packetData.getTtl() <= 0) {
-                DataCollector.packetDied(packet.getID());
+                DataCollector.collect(new PacketDied(packet.getID()));
                 return;
             }
             SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData.getMessageID(),
                                                             packetData.getNodeSenderID(), packet.getDestination(),
                                                             packetData.getPartsCount(), packetData.getPartNumber());
-            Packet newPacket = new Packet(thisNode.getID(), packet.getDestination(), packetData.getSize(), data);
+            Packet newPacket = new Packet(this.nodeID, packet.getDestination(), packetData.getSize(), data);
             this.packetsInProcess.put(newPacket.getID(), newPacket);
             this.packetQueue.addLast(newPacket.getID());
         }
@@ -128,5 +128,15 @@ public class SimpleProtocol extends NetworkProtocol {
         else {
             this.packetQueue.addLast(id);
         }
+    }
+
+    @Override
+    public String getType() {
+        return "SimpleProtocol";
+    }
+
+    @Override
+    public String getState() {
+        return packetQueue.toString();
     }
 }

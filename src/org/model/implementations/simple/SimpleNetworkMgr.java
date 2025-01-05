@@ -16,6 +16,7 @@ import org.model.interfaces.UserNetworkMgr;
 
 
 public class SimpleNetworkMgr implements UserNetworkMgr {
+    private static Random random = new Random();
     private int maxConnectionRequestTimer = 64;
     private int nextConnectionRequestTimer = 0;
     private int maxConnectionRadius = 128;
@@ -59,7 +60,7 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
                 this.connections.add(newConnectionID);
 
             }
-            nextConnectionRequestTimer = new Random().nextInt(maxConnectionRequestTimer);
+            nextConnectionRequestTimer = random.nextInt(maxConnectionRequestTimer);
             return;
         }
         nextConnectionRequestTimer -= 1;
@@ -81,4 +82,15 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
     public void connectionBreak(ConnectionID id) {
         ConnectionStorage.get(id).removeNodeID(this.nodeID);
     }
+
+    @Override
+    public String getType() {
+        return "SimpleNetworkMgr";
+    }
+
+    @Override
+    public String getState() {
+        return this.getConnectionsSet().toString() + " " + Integer.toString(this.nextConnectionRequestTimer);
+    }
+
 }

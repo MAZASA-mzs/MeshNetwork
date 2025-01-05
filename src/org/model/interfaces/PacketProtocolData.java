@@ -6,4 +6,6 @@ package org.model.interfaces;
 public interface PacketProtocolData {
 
     public abstract int getSize();
+
+    public abstract String getData();
 }

@@ -17,4 +17,8 @@ public interface UserTrafficBehavior {
      * @return List<Message> A list of new Messages that require processing
      */
     public abstract List<Message> getNewMessages();
+
+    public abstract String getType();
+
+    public abstract String getState();
 }

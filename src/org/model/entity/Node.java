@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Collections;
 
-import org.controller.DataCollector;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
@@ -61,7 +60,6 @@ public class Node {
     }
 
     public void tick() {
-        DataCollector.nodePosition(this.getID(), this.getX(), this.getY());
         networkMgr.tick();
         behavior.tick();
         List<Message> messages = behavior.getNewMessages();
@@ -77,11 +75,27 @@ public class Node {
         return networkMgr.connectionRequest(id);
     }
 
-    public void recivePackets(List<Packet> packets) {
+    public void receivePacket(Packet packet) {
+        protocol.receivePacket(packet);
+    }
+
+    public void receivePackets(List<Packet> packets) {
         protocol.receivePackets(packets);
     }
 
     public void sendingPacketResult(PacketID id, boolean isSuccessfulSending) {
         protocol.sendingPacketResult(id, isSuccessfulSending);
+    }
+
+    public String getProtocolState() {
+        return this.protocol.getState();
+    }
+
+    public String getNetworkMgrState() {
+        return this.networkMgr.getState();
+    }
+
+    public String getBehaviorState() {
+        return this.behavior.getState();
     }
 }

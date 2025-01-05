@@ -1,6 +1,8 @@
 package org.model.containers;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,5 +40,12 @@ public class NodeStorage {
             NodeStorage.get(nodeID).tick();
         }
         return;
+    }
+
+    public static List<Node> getNodesList() {
+        List<Node> nodes = new LinkedList<>();
+        for (NodeID nodeID : NodeStorage.data.keySet())
+            nodes.add(NodeStorage.get(nodeID));
+        return nodes;
     }
 }

@@ -33,4 +33,8 @@ public interface UserNetworkMgr {
      * @param id The ID of the disconnected connection
      */
     public abstract void connectionBreak(ConnectionID id);
+
+    public abstract String getType();
+
+    public abstract String getState();
 }

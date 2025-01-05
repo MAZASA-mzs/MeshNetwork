@@ -10,12 +10,14 @@ import org.model.interfaces.UserTrafficBehavior;
 import org.model.structures.Message;
 
 public class SimpleTrafficBehavior implements UserTrafficBehavior {
+    private static Random random = new Random();
     private final NodeID nodeID;
     private NodeID nextNodeID;
     private int nextMessageSize;
     private int maxMessageSize = 128;
     private int maxMessageTimer = 128;
     private int nextMessageTimer = 0;
+    private boolean hasNewMessage = true;
 
     public SimpleTrafficBehavior(NodeID nodeID) {
         this.nodeID = nodeID;
@@ -23,25 +25,38 @@ public class SimpleTrafficBehavior implements UserTrafficBehavior {
 
     @Override
     public void tick() {
-        if (this.nextMessageTimer <= 0) {
-            Random random = new Random();
+        if (nextMessageTimer <= 0) {
             Object[] nodeArray = NodeStorage.getIDs().toArray();
             if (nodeArray == null || nodeArray.length == 0) {
                 return;
             }
-            nextMessageSize = random.nextInt(this.maxMessageSize);
+            nextMessageSize = random.nextInt(maxMessageSize);
             nextNodeID = (NodeID)nodeArray[random.nextInt(nodeArray.length)];
-            this.nextMessageTimer = random.nextInt(maxMessageTimer);
+            nextMessageTimer = random.nextInt(maxMessageTimer);
+            hasNewMessage = true;
             return;
         }
-        this.nextMessageTimer -= 1;
+        nextMessageTimer -= 1;
     }
 
     @Override
     public List<Message> getNewMessages() {
-        Message message = new Message(nextNodeID, nextMessageSize);
         LinkedList<Message> messages = new LinkedList<Message>();
-        messages.addLast(message);
+        if (hasNewMessage) {
+            Message message = new Message(nextNodeID, nextMessageSize);
+            messages.addLast(message);
+            hasNewMessage = false;
+        }
         return messages;
+    }
+
+    @Override
+    public String getType() {
+        return "SimpleTrafficBehavior";
+    }
+
+    @Override
+    public String getState() {
+        return Boolean.toString(hasNewMessage) + " " + Integer.toString(nextMessageTimer) + " " + nodeID.toString();
     }
 }

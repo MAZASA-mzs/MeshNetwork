@@ -45,4 +45,8 @@ public abstract class NetworkProtocol {
      * @param isSuccessfulSending Whether the packet was sent successfully
      */
     public abstract void sendingPacketResult(PacketID id, boolean isSuccessfulSending);
+
+    public abstract String getType();
+
+    public abstract String getState();
 }
