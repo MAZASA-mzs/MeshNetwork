@@ -9,7 +9,7 @@ import org.model.implementations.base.meshevents.StartOfIteration;
 import org.view.implementations.FullStdOutView;
 
 public class App {
-    private static final int deadTimer = 200;
+    private static final int deadTimer = 1000;
     public static void main(String[] args) throws Exception {
         long startTime = System.nanoTime();
         DataCollector.addListener(new MeshEventListener(new FullStdOutView()));
@@ -22,10 +22,10 @@ public class App {
             NodeStorage.update();
             ConnectionStorage.update();
             NodeFactory.update();
-            if (globalTimer > App.deadTimer)
-                break;
             DataCollector.collect((MeshEvent)(new EndOfIteration(globalTimer)));
             globalTimer += 1;
+            if (globalTimer > App.deadTimer)
+                break;
         }
         long elapsedTime = System.nanoTime() - startTime;
         double seconds = (double)elapsedTime / 1_000_000_000.0;

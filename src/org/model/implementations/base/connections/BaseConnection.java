@@ -1,6 +1,7 @@
 package org.model.implementations.base.connections;
 
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
@@ -76,7 +77,6 @@ public class BaseConnection implements Connection {
 
     @Override
     public void tick() {
-        // DataCollector.connectionBetweenNodes(this.getID(), this.getConnectedNodesID());
         List<Pair<Packet, Integer>> newSendingPacketsList = new LinkedList<>();
         for (Pair<Packet, Integer> pair : this.sendingPacketsList) {
             Packet packet = pair.k;
@@ -105,12 +105,11 @@ public class BaseConnection implements Connection {
 
     @Override
     public String getPacketsState() {
-        String outString = new String();
+        StringJoiner joiner = new StringJoiner(" ");
         for (Pair<Packet, Integer> pair : sendingPacketsList) {
-            Packet packet = pair.k;
-            Integer sendingProgress = pair.v;
-            outString += packet.getID().toString() + " " + sendingProgress.toString();
+            joiner.add(pair.k.getProtocolData().getData());
+            joiner.add(pair.v.toString());
         }
-        return outString;
+        return joiner.toString();
     }
 }

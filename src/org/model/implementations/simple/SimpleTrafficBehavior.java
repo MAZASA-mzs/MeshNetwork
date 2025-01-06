@@ -15,7 +15,8 @@ public class SimpleTrafficBehavior implements UserTrafficBehavior {
     private NodeID nextNodeID;
     private int nextMessageSize;
     private int maxMessageSize = 128;
-    private int maxMessageTimer = 128;
+    private int minMessageTimer = 0;
+    private int maxMessageTimer = 3;
     private int nextMessageTimer = 0;
     private boolean hasNewMessage = true;
 
@@ -32,7 +33,7 @@ public class SimpleTrafficBehavior implements UserTrafficBehavior {
             }
             nextMessageSize = random.nextInt(maxMessageSize);
             nextNodeID = (NodeID)nodeArray[random.nextInt(nodeArray.length)];
-            nextMessageTimer = random.nextInt(maxMessageTimer);
+            nextMessageTimer = random.nextInt(minMessageTimer, maxMessageTimer);
             hasNewMessage = true;
             return;
         }

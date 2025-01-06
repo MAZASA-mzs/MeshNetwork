@@ -9,12 +9,12 @@ import org.model.ids.NodeID;
  */
 public class Packet {
 
-    private final PacketID  id;
-    private final NodeID    lastSender;
-    private final NodeID    destination;
-    private final int       size;
-    private double          transferRate;
-    PacketProtocolData    protocolData;
+    private final PacketID id;
+    private final NodeID   lastSender;
+    private final NodeID   destination;
+    private final int      size;
+    private double         transferRate;
+    PacketProtocolData     protocolData;
 
     public Packet(NodeID lastSender, NodeID destination, int size, PacketProtocolData protocolData) {
         this.id = new PacketID();

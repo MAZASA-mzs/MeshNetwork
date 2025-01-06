@@ -1,13 +1,16 @@
 package org.view.implementations;
 
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import org.controller.datacollection.MeshEvent;
 import org.model.entity.Connection;
 import org.model.entity.Node;
+import org.model.ids.NodeID;
 import org.view.interfaces.View;
 
-public class FullStdOutView implements View{
+public class FullStdOutView implements View {
     public FullStdOutView() {}
 
     @Override
@@ -17,9 +20,9 @@ public class FullStdOutView implements View{
             System.out.println("NodeState");
             System.out.println(node.getID());
             System.out.println(Double.toString(node.getX()) + " " + Double.toString(node.getY()));
-            System.out.println(node.getProtocolState());
-            System.out.println(node.getNetworkMgrState());
-            System.out.println(node.getBehaviorState());
+            System.out.println(node.getProtocolType() + " " + node.getProtocolState());
+            System.out.println(node.getNetworkMgrType() + " " + node.getNetworkMgrState());
+            System.out.println(node.getBehaviorType() + " " + node.getBehaviorState());
         }
     }
 
@@ -30,7 +33,13 @@ public class FullStdOutView implements View{
             System.out.println("ConnectionState");
             System.out.println(connection.getID());
             System.out.println(connection.isP2P());
-            System.out.println(connection.getConnectedNodesID());
+
+            StringJoiner joiner = new StringJoiner(" ");
+            for (NodeID nodeID : connection.getConnectedNodesID()) {
+                joiner.add(nodeID.toString());
+            }
+            System.out.println(joiner.toString());
+
             System.out.println("PacketsState");
             System.out.println(connection.getPacketsState());
         }

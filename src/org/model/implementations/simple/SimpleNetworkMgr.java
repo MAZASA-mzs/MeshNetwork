@@ -17,9 +17,11 @@ import org.model.interfaces.UserNetworkMgr;
 
 public class SimpleNetworkMgr implements UserNetworkMgr {
     private static Random random = new Random();
-    private int maxConnectionRequestTimer = 64;
-    private int nextConnectionRequestTimer = 0;
-    private int maxConnectionRadius = 128;
+    private static int connectionAccept = 10;
+    private static int minConnectionRequestTimer = 5;
+    private static int maxConnectionRequestTimer = 10;
+    private static int nextConnectionRequestTimer = 0;
+    private static int maxConnectionRadius = 256;
     private Set<ConnectionID> connections;
     private final NodeID nodeID;
 
@@ -48,7 +50,7 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
 
                 if ((Math.pow(thisNode.getX()-otherNode.getX(),2) +
                      Math.pow(thisNode.getY()-otherNode.getY(),2)
-                    ) > Math.pow((double)this.maxConnectionRadius,2))
+                    ) > Math.pow((double)maxConnectionRadius,2))
                         continue;
                 ConnectionID newConnectionID = ConnectionFactory.newPtPConnection();
                 boolean isSuccessfulConnection = otherNode.connectionRequest(newConnectionID);
@@ -60,7 +62,7 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
                 this.connections.add(newConnectionID);
 
             }
-            nextConnectionRequestTimer = random.nextInt(maxConnectionRequestTimer);
+            nextConnectionRequestTimer = random.nextInt(minConnectionRequestTimer, maxConnectionRequestTimer);
             return;
         }
         nextConnectionRequestTimer -= 1;
@@ -73,9 +75,12 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
 
     @Override
     public boolean connectionRequest(ConnectionID id) {
-        this.connections.add(id);
-        ConnectionStorage.get(id).addNodeID(this.nodeID);
-        return true;
+        if (random.nextInt(1000) <= connectionAccept) {
+            this.connections.add(id);
+            ConnectionStorage.get(id).addNodeID(this.nodeID);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -90,7 +95,7 @@ public class SimpleNetworkMgr implements UserNetworkMgr {
 
     @Override
     public String getState() {
-        return this.getConnectionsSet().toString() + " " + Integer.toString(this.nextConnectionRequestTimer);
+        return this.getConnectionsSet().toString() + " " + Integer.toString(nextConnectionRequestTimer);
     }
 
 }

@@ -18,11 +18,11 @@ import org.model.structures.Packet;
  */
 public class Node {
 
-    private final NodeID        id;
-    private double              x;
-    private double              y;
-    NetworkProtocol    protocol;
-    UserTrafficBehavior    behavior;
+    private final NodeID      id;
+    private double             x;
+    private double             y;
+    NetworkProtocol     protocol;
+    UserTrafficBehavior behavior;
     UserNetworkMgr  networkMgr;
 
     public Node(double x, double y, NetworkProtocol protocol, UserTrafficBehavior behavior, UserNetworkMgr networkMgr) {
@@ -91,11 +91,23 @@ public class Node {
         return this.protocol.getState();
     }
 
+    public String getProtocolType() {
+        return this.protocol.getType();
+    }
+
     public String getNetworkMgrState() {
         return this.networkMgr.getState();
     }
 
+    public String getNetworkMgrType() {
+        return this.networkMgr.getType();
+    }
+
     public String getBehaviorState() {
         return this.behavior.getState();
+    }
+
+    public String getBehaviorType() {
+        return this.behavior.getType();
     }
 }
