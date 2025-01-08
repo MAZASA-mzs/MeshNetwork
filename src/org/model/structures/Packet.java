@@ -11,17 +11,15 @@ public class Packet {
 
     private final PacketID id;
     private final NodeID   lastSender;
-    private final NodeID   destination;
+    private final NodeID   closeDestination;
     private final int      size;
-    private double         transferRate;
     PacketProtocolData     protocolData;
 
     public Packet(NodeID lastSender, NodeID destination, int size, PacketProtocolData protocolData) {
         this.id = new PacketID();
         this.lastSender = lastSender;
-        this.destination = destination;
+        this.closeDestination = destination;
         this.size = size;
-        this.transferRate = 0;
         this.protocolData = protocolData;
     }
 
@@ -33,20 +31,12 @@ public class Packet {
         return lastSender;
     }
 
-    public NodeID getDestination() {
-        return destination;
+    public NodeID getCloseDestination() {
+        return closeDestination;
     }
 
     public int getSize() {
         return size + protocolData.getSize();
-    }
-
-    public double getTransferRate() {
-        return transferRate;
-    }
-
-    public void setTransferRate(double transferRate) {
-        this.transferRate = transferRate; 
     }
 
     public PacketProtocolData getProtocolData() {

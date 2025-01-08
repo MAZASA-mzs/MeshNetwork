@@ -15,7 +15,7 @@ public class MessageRecieved implements MeshEvent {
 
     @Override
     public String getEventType() {
-        return "MessageRacieved";
+        return "MessageRecieved";
 }
 
     @Override

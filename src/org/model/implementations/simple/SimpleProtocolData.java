@@ -24,6 +24,15 @@ public class SimpleProtocolData implements PacketProtocolData{
         this.partNumber     = partNumber;
     }
 
+    public SimpleProtocolData(int ttl, SimpleProtocolData packetData) {
+        this.ttl = ttl;
+        this.messageID      = packetData.getMessageID();
+        this.nodeSenderID   = packetData.getNodeSenderID();
+        this.nodeReceiverID = packetData.getNodeReceiverID();
+        this.partsCount     = packetData.getPartsCount();
+        this.partNumber     = packetData.getPartNumber();
+    }
+
     public int getSize() {
         return size;
     }
@@ -56,5 +65,4 @@ public class SimpleProtocolData implements PacketProtocolData{
     public String getData() {
         return nodeSenderID.toString() + " " + nodeReceiverID.toString() + " " + messageID.toString() + " " + Integer.toString(ttl);
     }
-
 }

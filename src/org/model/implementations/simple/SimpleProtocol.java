@@ -19,8 +19,10 @@ import org.model.ids.ConnectionID;
 import org.model.ids.MessageID;
 import org.model.ids.NodeID;
 import org.model.ids.PacketID;
+import org.model.implementations.base.ids.BroadcastAddress;
 import org.model.implementations.base.meshevents.MessageRecieved;
 import org.model.implementations.simple.meshevents.PacketDied;
+import org.model.implementations.simple.meshevents.PacketInvalid;
 import org.model.interfaces.NetworkProtocol;
 import org.model.structures.Message;
 import org.model.structures.Packet;
@@ -57,9 +59,9 @@ public class SimpleProtocol extends NetworkProtocol {
                 int delta = Math.min(SimpleProtocolData.size, current_msg_size);
                 current_msg_size -= delta;
                 SimpleProtocolData data = new SimpleProtocolData(SimpleProtocol.startTtl, message.getID(),
-                                                                this.nodeID, message.getDestination(),
+                                                                message.getSender(), message.getDestination(),
                                                                 partsCount, partNumber);
-                Packet packet = new Packet(this.nodeID, message.getDestination(), delta, data);
+                Packet packet = new Packet(this.nodeID, BroadcastAddress.getInstance(), delta, data);
                 this.packetsInProcess.put(packet.getID(), packet);
                 this.packetQueue.addLast(packet.getID());
             }
@@ -87,9 +89,19 @@ public class SimpleProtocol extends NetworkProtocol {
         }
 
     public void receivePacket(Packet packet) {
+        // skip self-sent packets
+        if (packet.getLastSender().equals(this.nodeID)) return;
         SimpleProtocolData packetData = (SimpleProtocolData) packet.getProtocolData();
         // if this.node is receiver
-        if (packet.getDestination().equals(this.nodeID)) {
+        if (packetData.getNodeReceiverID().equals(this.nodeID)) {
+            if (!(
+                packet.getCloseDestination().equals(packetData.getNodeReceiverID()) ||
+                packet.getCloseDestination().equals(BroadcastAddress.getInstance())
+                )) {
+                DataCollector.collect(new PacketInvalid(packet.getID(),
+                            "Invalid pakcetData NodeReceiverID "+ packetData.getNodeReceiverID()+
+                            " and packet CloseDestination "+packet.getCloseDestination()));
+            }
             MessageID messageID = packetData.getMessageID();
             // skip already recieved messages
             if (this.recivedMessages.contains(messageID)) return;
@@ -111,10 +123,8 @@ public class SimpleProtocol extends NetworkProtocol {
                 DataCollector.collect(new PacketDied(packet.getID()));
                 return;
             }
-            SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData.getMessageID(),
-                                                            packetData.getNodeSenderID(), packet.getDestination(),
-                                                            packetData.getPartsCount(), packetData.getPartNumber());
-            Packet newPacket = new Packet(this.nodeID, packet.getDestination(), packetData.getSize(), data);
+            SimpleProtocolData data = new SimpleProtocolData(packetData.getTtl()-1, packetData);
+            Packet newPacket = new Packet(this.nodeID, BroadcastAddress.getInstance(), packetData.getSize(), data);
             this.packetsInProcess.put(newPacket.getID(), newPacket);
             this.packetQueue.addLast(newPacket.getID());
         }
@@ -122,12 +132,10 @@ public class SimpleProtocol extends NetworkProtocol {
 
     @Override
     public void sendingPacketResult(PacketID id, boolean isSuccessfulSending) {
-        if (isSuccessfulSending) {
+        if (isSuccessfulSending)
             this.packetsInProcess.remove(id);
-        }
-        else {
+        else
             this.packetQueue.addLast(id);
-        }
     }
 
     @Override

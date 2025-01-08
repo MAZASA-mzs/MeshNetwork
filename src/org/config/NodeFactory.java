@@ -17,8 +17,8 @@ public class NodeFactory {
     private static Random random = new Random();
     private static int startNodes = 10;
     private static int newNodeTimer = 0;
-    private static int minNewNodeTimer = 48;
-    private static int maxNewNodeTimer = 128;
+    private static int minNewNodeTimer = Integer.MAX_VALUE-1;
+    private static int maxNewNodeTimer = Integer.MAX_VALUE;
     
     public static int initNodes() {
         int totalNodes = NodeFactory.startNodes;
@@ -44,7 +44,6 @@ public class NodeFactory {
                                     protocol, behavior, networkMgr);
             NodeStorage.add(newNode);
             newNodeTimer = random.nextInt(minNewNodeTimer, maxNewNodeTimer);
-            // newNodeTimer = 0;
             return;
         }
         newNodeTimer -= 1;

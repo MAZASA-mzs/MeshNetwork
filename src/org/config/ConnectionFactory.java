@@ -11,7 +11,7 @@ public class ConnectionFactory {
     private static Random random = new Random();
 
     public static ConnectionID newPtPConnection() {
-        Connection connection = new BaseConnection(true, random.nextInt(5, 10), random.nextInt(900, 1000));
+        Connection connection = new BaseConnection(true, random.nextInt(100, 200), random.nextInt(999, 1000));
         ConnectionStorage.add(connection);
         return connection.getID();
     }    

@@ -17,6 +17,7 @@ import org.model.entity.Connection;
 import org.model.entity.Node;
 import org.model.ids.ConnectionID;
 import org.model.ids.NodeID;
+import org.model.implementations.base.ids.BroadcastAddress;
 import org.model.implementations.base.meshevents.AddNodeInConnection;
 import org.model.implementations.base.meshevents.PacketLost;
 
@@ -83,8 +84,17 @@ public class BaseConnection implements Connection {
             int sendingProgress = pair.v;
 
             if (sendingProgress >= 1000 ) {
-                Node node = NodeStorage.get(packet.getDestination());
-                node.receivePacket(packet);
+                NodeID destination = packet.getCloseDestination();
+                if (destination.equals(BroadcastAddress.getInstance())) {
+                    for (NodeID nodeID : this.connectedNodesID) {
+                        Node node = NodeStorage.get(nodeID);
+                        node.receivePacket(packet);    
+                    }
+                }
+                else {
+                    Node node = NodeStorage.get(destination);
+                    node.receivePacket(packet);
+                }
             }
             else {
                 if (new Random().nextInt(1000) > this.reliability) {
@@ -107,6 +117,8 @@ public class BaseConnection implements Connection {
     public String getPacketsState() {
         StringJoiner joiner = new StringJoiner(" ");
         for (Pair<Packet, Integer> pair : sendingPacketsList) {
+            joiner.add(pair.k.getLastSender().toString());
+            joiner.add(pair.k.getCloseDestination().toString());
             joiner.add(pair.k.getProtocolData().getData());
             joiner.add(pair.v.toString());
         }

@@ -1,1 +1,1 @@
-Create new interface for connection
+Fix SimpleProtocol to send nodes to nearby nodes

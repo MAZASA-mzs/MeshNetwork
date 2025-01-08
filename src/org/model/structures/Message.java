@@ -9,11 +9,13 @@ import org.model.ids.NodeID;
 public class Message {
 
     private final MessageID id;
+    private final NodeID    sender;
     private final NodeID    destination;
     private final int       size;
 
-    public Message(NodeID destination, int size) {
+    public Message(NodeID sender, NodeID destination, int size) {
         this.id = new MessageID(); 
+        this.sender = sender;
         this.destination = destination;
         this.size = size;
     }
@@ -21,7 +23,11 @@ public class Message {
     public MessageID getID() {
         return id;
     }
-    
+
+    public NodeID getSender() {
+        return sender;
+    }
+
     public NodeID getDestination() {
         return destination;
     }
